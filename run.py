@@ -10,7 +10,7 @@ size = width, height = 800, 600
 black = 0, 0, 0
 
 maxVelocity = 10
-numBoids = 20
+numBoids = 90
 boids = []
 
 pygame.init()
@@ -31,8 +31,8 @@ def do_screen(obj,surface):
     screen.blit(surface, objRect)
 
 
-boid_predator = Predator(random.randint(0, width),
-    random.randint(0, height),random.randint(1,2))
+predators = [ Predator(random.randint(0, width),
+    random.randint(0, height),1) for i in xrange(0,5)]
 
 
 # create boids at random positions
@@ -46,13 +46,14 @@ while 1:
         if event.type == pygame.QUIT:
             sys.exit()
 
-    boid_predator.keep_on_screen()
-    boid_predator.move()
+    for pred in predators:
+        pred.keep_on_screen()
+        pred.setSpeed()
+        pred.move()
+        # predators are killing
+        boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
 
-    print len(boids)
 
-    # predator is killing
-    boids = [ boid for boid in boids if boid.distance(boid_predator) >= 10 ]
 
     print len(boids)
     for boid in boids:
@@ -82,7 +83,8 @@ while 1:
 
     screen.fill(black)
 
-    do_screen(boid_predator,predator)
+    for pred in predators:
+        do_screen(pred,predator)
 
     for boid in boids:
         do_screen(boid,prey)

@@ -138,6 +138,10 @@ class Predator(BoidBase):
     def __init__(self, x, y, gender, maxVelocity=60):
         super(self.__class__, self).__init__(x,y,gender,maxVelocity)
 
+    def setSpeed(self):
+        self.velocityX *= 1.01
+        self.velocityY *= 1.01
+
     def move(self):
         if abs(self.velocityX) > self.maxVelocity or abs(self.velocityY) > self.maxVelocity:
             scaleFactor = self.maxVelocity / max(abs(self.velocityX), abs(self.velocityY))
