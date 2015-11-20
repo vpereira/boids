@@ -6,11 +6,11 @@ import random
 import sys
 from boid import Boid
 
-size = width, height = 800,600
+size = width, height = 800, 600
 black = 0, 0, 0
 
 maxVelocity = 10
-numBoids = 50
+numBoids = 10
 boids = []
 
 pygame.init()
@@ -22,20 +22,26 @@ ballrect = ball.get_rect()
 
 # create boids at random positions
 for i in range(numBoids):
-    boids.append(Boid(random.randint(0, width), random.randint(0, height)))
+    boids.append(Boid(random.randint(0, width),
+        random.randint(0, height),random.randint(1,2)))
 
 while 1:
     for event in pygame.event.get():
-        if event.type == pygame.QUIT: sys.exit()
+        if event.type == pygame.QUIT:
+            sys.exit()
 
     for boid in boids:
         closeBoids = []
         for otherBoid in boids:
-            if otherBoid == boid: continue
+            if otherBoid == boid:
+                continue
             distance = boid.distance(otherBoid)
             if distance < 200:
                 closeBoids.append(otherBoid)
-
+            if distance < 1:
+                baby = boid.procreate(otherBoid)
+                if baby:
+                    boids.append(baby)
 
         boid.moveCloser(closeBoids)
         boid.moveWith(closeBoids)

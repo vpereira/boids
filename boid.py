@@ -1,15 +1,25 @@
 #!/usr/bin/env python
 # Boid implementation in Python using PyGame
 
-import sys, random, math
+import sys
+import random
+import math
+
 
 class Boid:
-    def __init__(self, x, y, maxVelocity = 10):
+    def __init__(self, x, y, gender, maxVelocity=10):
         self.x = x
         self.y = y
+        self.gender = gender
         self.velocityX = random.randint(1, 10) / 10.0
         self.velocityY = random.randint(1, 10) / 10.0
         self.maxVelocity = maxVelocity
+
+    "Procreation"
+    def procreate(self,boid):
+        if self.gender != boid.gender:
+            return Boid(random.randint(0, 800),
+                random.randint(0, 600),random.randint(1,2))
 
     "Return the distance from another boid"
     def distance(self, boid):
@@ -19,7 +29,8 @@ class Boid:
 
     "Move closer to a set of boids"
     def moveCloser(self, boids):
-        if len(boids) < 1: return
+        if len(boids) < 1:
+            return
 
         # calculate the average distances from the other boids
         avgX = 0
@@ -42,7 +53,8 @@ class Boid:
 
     "Move with a set of boids"
     def moveWith(self, boids):
-        if len(boids) < 1: return
+        if len(boids) < 1:
+            return
         # calculate the average velocities of the other boids
         avgX = 0
         avgY = 0
@@ -55,12 +67,13 @@ class Boid:
         avgY /= len(boids)
 
         # set our velocity towards the others
-        self.velocityX += (avgX / 40)
-        self.velocityY += (avgY / 40)
+        self.velocityX += (avgX / 10)
+        self.velocityY += (avgY / 10)
 
     "Move away from a set of boids. This avoids crowding"
     def moveAway(self, boids, minDistance):
-        if len(boids) < 1: return
+        if len(boids) < 1:
+            return
 
         distanceX = 0
         distanceY = 0
@@ -68,16 +81,20 @@ class Boid:
 
         for boid in boids:
             distance = self.distance(boid)
-            if  distance < minDistance:
+            if distance < minDistance:
                 numClose += 1
                 xdiff = (self.x - boid.x)
                 ydiff = (self.y - boid.y)
 
-                if xdiff >= 0: xdiff = math.sqrt(minDistance) - xdiff
-                elif xdiff < 0: xdiff = -math.sqrt(minDistance) - xdiff
+                if xdiff >= 0:
+                    xdiff = math.sqrt(minDistance) - xdiff
+                elif xdiff < 0:
+                    xdiff = -math.sqrt(minDistance) - xdiff
 
-                if ydiff >= 0: ydiff = math.sqrt(minDistance) - ydiff
-                elif ydiff < 0: ydiff = -math.sqrt(minDistance) - ydiff
+                if ydiff >= 0:
+                    ydiff = math.sqrt(minDistance) - ydiff
+                elif ydiff < 0:
+                    ydiff = -math.sqrt(minDistance) - ydiff
 
                 distanceX += xdiff
                 distanceY += ydiff
