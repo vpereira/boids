@@ -5,8 +5,7 @@ import sys
 import random
 import math
 
-
-class Boid:
+class BoidBase(object):
     def __init__(self, x, y, gender, maxVelocity=10):
         self.x = x
         self.y = y
@@ -15,11 +14,36 @@ class Boid:
         self.velocityY = random.randint(1, 10) / 10.0
         self.maxVelocity = maxVelocity
 
+    "Perform actual movement based on our velocity"
+    def move(self):
+        if abs(self.velocityX) > self.maxVelocity or abs(self.velocityY) > self.maxVelocity:
+            scaleFactor = self.maxVelocity / max(abs(self.velocityX), abs(self.velocityY))
+            self.velocityX *= scaleFactor
+            self.velocityY *= scaleFactor
+
+        self.x += self.velocityX
+        self.y += self.velocityY
+    "keep on screen"
+    def keep_on_screen(self,border=25, height=600,width=800):
+        if self.x < border and self.velocityX < 0:
+            self.velocityX = -self.velocityX * random.random()
+        if self.x > width - border and self.velocityX > 0:
+            self.velocityX = -self.velocityX * random.random()
+        if self.y < border and self.velocityY < 0:
+            self.velocityY = -self.velocityY * random.random()
+        if self.y > height - border and self.velocityY > 0:
+            self.velocityY = -self.velocityY * random.random()
+
+
+class Boid(BoidBase):
+    def __init__(self, x, y, gender, maxVelocity=10):
+        super(self.__class__, self).__init__(x,y,gender,maxVelocity)
+
     "Procreation"
     def procreate(self,boid):
         if self.gender != boid.gender:
-            return Boid(random.randint(0, 800),
-                random.randint(0, 600),random.randint(1,2))
+            return Boid(random.randint(0, 100),
+                random.randint(0, 100),random.randint(1,2))
 
     "Return the distance from another boid"
     def distance(self, boid):
@@ -105,7 +129,13 @@ class Boid:
         self.velocityX -= distanceX / 5
         self.velocityY -= distanceY / 5
 
-    "Perform actual movement based on our velocity"
+
+
+
+class Predator(BoidBase):
+    def __init__(self, x, y, gender, maxVelocity=60):
+        super(self.__class__, self).__init__(x,y,gender,maxVelocity)
+
     def move(self):
         if abs(self.velocityX) > self.maxVelocity or abs(self.velocityY) > self.maxVelocity:
             scaleFactor = self.maxVelocity / max(abs(self.velocityX), abs(self.velocityY))
