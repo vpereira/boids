@@ -17,12 +17,19 @@ pygame.init()
 
 screen = pygame.display.set_mode(size)
 
-ball = pygame.image.load("ball.png")
+prey = pygame.image.load("ball.png")
 predator = pygame.image.load("gray-ball.png")
 
-ballrect = ball.get_rect()
+preyrect = prey.get_rect()
 
 predatorect = predator.get_rect()
+
+def do_screen(obj,surface):
+    objRect = pygame.Rect(surface.get_rect())
+    objRect.x = obj.x
+    objRect.y = obj.y
+    screen.blit(surface, objRect)
+
 
 boid_predator = Predator(random.randint(0, width),
     random.randint(0, height),random.randint(1,2))
@@ -75,15 +82,10 @@ while 1:
 
     screen.fill(black)
 
-    predatoRect = pygame.Rect(predatorect)
-    predatoRect.x = boid_predator.x
-    predatoRect.y = boid_predator.y
-    screen.blit(predator, predatoRect)
+    do_screen(boid_predator,predator)
 
     for boid in boids:
-        boidRect = pygame.Rect(ballrect)
-        boidRect.x = boid.x
-        boidRect.y = boid.y
-        screen.blit(ball, boidRect)
+        do_screen(boid,prey)
+
     pygame.display.flip()
     pygame.time.delay(10)

@@ -4,6 +4,8 @@
 import sys
 import random
 import math
+import pygame
+
 
 class BoidBase(object):
     def __init__(self, x, y, gender, maxVelocity=10):
@@ -23,6 +25,7 @@ class BoidBase(object):
 
         self.x += self.velocityX
         self.y += self.velocityY
+
     "keep on screen"
     def keep_on_screen(self,border=25, height=600,width=800):
         if self.x < border and self.velocityX < 0:
@@ -33,6 +36,7 @@ class BoidBase(object):
             self.velocityY = -self.velocityY * random.random()
         if self.y > height - border and self.velocityY > 0:
             self.velocityY = -self.velocityY * random.random()
+
 
 
 class Boid(BoidBase):
@@ -128,8 +132,6 @@ class Boid(BoidBase):
 
         self.velocityX -= distanceX / 5
         self.velocityY -= distanceY / 5
-
-
 
 
 class Predator(BoidBase):
