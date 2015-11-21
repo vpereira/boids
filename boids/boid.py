@@ -82,8 +82,9 @@ class Boid(BoidBase):
     "Procreation"
     def procreate(self,boid):
         if self.gender != boid.gender:
-            # it can have upto 3 babies
-            return [ Boid(random.randint(0, 100), random.randint(0, 100),random.randint(1,2),self.screen) for a in xrange(0,random.randint(0,2)) ]
+            # it can have upto 3 babies at the same time :)
+            return [ Boid(random.randint(0, 100), random.randint(0, 100),
+                random.randint(1,2),self.screen) for _ in xrange(0,random.randint(0,2)) ]
 
     "Return the distance from another boid"
     def distance(self, boid):
