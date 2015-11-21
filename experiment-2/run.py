@@ -25,21 +25,16 @@ preyrect = prey.get_rect()
 
 predatorect = predator.get_rect()
 
-def do_screen(obj,surface):
-    objRect = pygame.Rect(surface.get_rect())
-    objRect.x = obj.x
-    objRect.y = obj.y
-    screen.blit(surface, objRect)
 
 
 predators = [ Predator(random.randint(0, width),
-    random.randint(0, height),1) for i in xrange(0,5)]
+    random.randint(0, height),1, screen) for i in xrange(0,5)]
 
 
 # create boids at random positions
 for i in range(numBoids):
     boids.append(Boid(random.randint(0, width),
-        random.randint(0, height),random.randint(1,2)))
+        random.randint(0, height),random.randint(1,2),screen))
 
 while 1:
 
@@ -85,10 +80,10 @@ while 1:
     screen.fill(black)
 
     for pred in predators:
-        do_screen(pred,predator)
+        pred.do_screen()
 
     for boid in boids:
-        do_screen(boid,prey)
+        boid.do_screen()
 
     pygame.display.flip()
     pygame.time.delay(10)

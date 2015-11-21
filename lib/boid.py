@@ -7,14 +7,22 @@ import math
 import pygame
 
 
-class BoidBase(object):
-    def __init__(self, x, y, gender, maxVelocity=10):
+class BoidBase(pygame.sprite.Sprite):
+    def __init__(self, x, y, gender, screen, maxVelocity=10):
         self.x = x
         self.y = y
         self.gender = gender
+        self.screen = screen
         self.velocityX = random.randint(1, 10) / 10.0
         self.velocityY = random.randint(1, 10) / 10.0
         self.maxVelocity = maxVelocity
+
+    "paint it in the screen"
+    def do_screen(self):
+        objRect = pygame.Rect(self.rect)
+        objRect.x = self.x
+        objRect.y = self.y
+        self.screen.blit(self.image, objRect)
 
     "Perform actual movement based on our velocity"
     def move(self):
@@ -40,14 +48,19 @@ class BoidBase(object):
 
 
 class Boid(BoidBase):
-    def __init__(self, x, y, gender, maxVelocity=10):
-        super(self.__class__, self).__init__(x,y,gender,maxVelocity)
+    def __init__(self, x, y, gender, screen, maxVelocity=10):
+        super(self.__class__, self).__init__(x,y,gender,screen,maxVelocity)
+        pygame.sprite.Sprite.__init__(self)
+        # TODO
+        # fix the path
+        self.image = pygame.image.load("../lib/ball.png")
+        self.rect = self.image.get_rect()
 
     "Procreation"
     def procreate(self,boid):
         if self.gender != boid.gender:
             return Boid(random.randint(0, 100),
-                random.randint(0, 100),random.randint(1,2))
+                random.randint(0, 100),random.randint(1,2),self.screen)
 
     "Return the distance from another boid"
     def distance(self, boid):
@@ -135,9 +148,13 @@ class Boid(BoidBase):
 
 
 class Predator(BoidBase):
-    def __init__(self, x, y, gender, maxVelocity=60):
-        super(self.__class__, self).__init__(x,y,gender,maxVelocity)
-
+    def __init__(self, x, y, gender, screen, maxVelocity=60):
+        super(self.__class__, self).__init__(x,y,gender, screen,maxVelocity)
+        pygame.sprite.Sprite.__init__(self)
+        # TODO
+        # fix the path
+        self.image = pygame.image.load("../lib/gray-ball.png")
+        self.rect = self.image.get_rect()
     def setSpeed(self):
         self.velocityX *= 1.01
         self.velocityY *= 1.01
