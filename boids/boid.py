@@ -46,29 +46,6 @@ class BoidBase(pygame.sprite.Sprite):
         if self.y > height - border and self.velocityY > 0:
             self.velocityY = -self.velocityY * random.random()
 
-
-
-class Boid(BoidBase):
-    def __init__(self, x, y, gender, screen, maxVelocity=10):
-        super(self.__class__, self).__init__(x,y,gender,screen,maxVelocity)
-        pygame.sprite.Sprite.__init__(self)
-        # TODO
-        # fix the path
-        self.image = pygame.image.load(BoidConstants.BOID_IMAGE)
-        self.rect = self.image.get_rect()
-
-    "Procreation"
-    def procreate(self,boid):
-        if self.gender != boid.gender:
-            return Boid(random.randint(0, 100),
-                random.randint(0, 100),random.randint(1,2),self.screen)
-
-    "Return the distance from another boid"
-    def distance(self, boid):
-        distX = self.x - boid.x
-        distY = self.y - boid.y
-        return math.sqrt(distX * distX + distY * distY)
-
     "Move closer to a set of boids"
     def moveCloser(self, boids):
         if len(boids) < 1:
@@ -92,6 +69,29 @@ class Boid(BoidBase):
 
         self.velocityX -= (avgX / 100)
         self.velocityY -= (avgY / 100)
+
+class Boid(BoidBase):
+    def __init__(self, x, y, gender, screen, maxVelocity=10):
+        super(self.__class__, self).__init__(x,y,gender,screen,maxVelocity)
+        pygame.sprite.Sprite.__init__(self)
+        # TODO
+        # fix the path
+        self.image = pygame.image.load(BoidConstants.BOID_IMAGE)
+        self.rect = self.image.get_rect()
+
+    "Procreation"
+    def procreate(self,boid):
+        if self.gender != boid.gender:
+            return Boid(random.randint(0, 100),
+                random.randint(0, 100),random.randint(1,2),self.screen)
+
+    "Return the distance from another boid"
+    def distance(self, boid):
+        distX = self.x - boid.x
+        distY = self.y - boid.y
+        return math.sqrt(distX * distX + distY * distY)
+
+
 
     "Move with a set of boids"
     def moveWith(self, boids):
@@ -156,6 +156,7 @@ class Predator(BoidBase):
         # fix the path
         self.image = pygame.image.load(BoidConstants.PREDATOR_IMAGE)
         self.rect = self.image.get_rect()
+
     def setSpeed(self):
         self.velocityX *= 1.01
         self.velocityY *= 1.01

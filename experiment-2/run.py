@@ -13,7 +13,7 @@ size = width, height = BoidConstants.MAP_SIZE
 
 
 maxVelocity = 10
-numBoids = 100
+numBoids = 200
 boids = []
 
 pygame.init()
@@ -42,6 +42,8 @@ while 1:
         pred.move()
         # predators are killing
         boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
+        # hunt down boids
+        pred.moveCloser(boids)
 
     print len(boids)
     for boid in boids:

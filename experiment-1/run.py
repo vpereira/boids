@@ -11,7 +11,7 @@ from boids.boid_constants import BoidConstants
 size = width, height = BoidConstants.MAP_SIZE
 
 maxVelocity = 10
-numBoids = 90
+numBoids = 400
 boids = []
 
 pygame.init()
@@ -39,6 +39,7 @@ while 1:
         pred.move()
         # predators are killing
         boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
+        pred.moveCloser(boids)
 
     print len(boids)
     for boid in boids:
@@ -58,7 +59,10 @@ while 1:
 
         boid.moveCloser(closeBoids)
         boid.moveWith(closeBoids)
+        # trx to stick together
         boid.moveAway(closeBoids, 25)
+        # try to move away from predators
+        boid.moveAway(predators, random.randint(0,25))
 
         # ensure they stay within the screen space
         # if we roubound we can lose some of our velocity
