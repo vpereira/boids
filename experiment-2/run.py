@@ -22,7 +22,7 @@ screen = pygame.display.set_mode(size)
 
 
 predators = [ Predator(random.randint(0, width),
-    random.randint(0, height),1, screen) for i in xrange(0,numBoids/50)]
+    random.randint(0, height),1, screen) for _ in xrange(0,numBoids/50)]
 
 
 # create boids at random positions
@@ -56,7 +56,7 @@ while 1:
             if distance <= 1:
                 babies = boid.procreate(otherBoid)
                 if babies:
-                    boids +=babies
+                    boids += babies
                 else:
                     pass
 

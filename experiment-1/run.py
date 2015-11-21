@@ -11,7 +11,7 @@ from boids.boid_constants import BoidConstants
 size = width, height = BoidConstants.MAP_SIZE
 
 maxVelocity = 10
-numBoids = 400
+numBoids = 200
 boids = []
 
 pygame.init()
@@ -19,7 +19,7 @@ pygame.init()
 screen = pygame.display.set_mode(size)
 
 predators = [ Predator(random.randint(0, width),
-    random.randint(0, height),1, screen) for i in xrange(0,5)]
+    random.randint(0, height),1, screen) for _ in xrange(0,5)]
 
 
 # create boids at random positions
