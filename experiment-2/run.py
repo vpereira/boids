@@ -11,7 +11,7 @@ size = width, height = 800, 600
 black = 0, 0, 0
 
 maxVelocity = 10
-numBoids = 90
+numBoids = 100
 boids = []
 
 pygame.init()
@@ -28,7 +28,7 @@ predatorect = predator.get_rect()
 
 
 predators = [ Predator(random.randint(0, width),
-    random.randint(0, height),1, screen) for i in xrange(0,5)]
+    random.randint(0, height),1, screen) for i in xrange(0,numBoids/50)]
 
 
 # create boids at random positions
