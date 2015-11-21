@@ -6,6 +6,7 @@ import random
 import math
 import pygame
 
+from boids.boid_constants import BoidConstants
 
 class BoidBase(pygame.sprite.Sprite):
     def __init__(self, x, y, gender, screen, maxVelocity=10):
@@ -53,7 +54,7 @@ class Boid(BoidBase):
         pygame.sprite.Sprite.__init__(self)
         # TODO
         # fix the path
-        self.image = pygame.image.load("../lib/boid.png")
+        self.image = pygame.image.load(BoidConstants.BOID_IMAGE)
         self.rect = self.image.get_rect()
 
     "Procreation"
@@ -153,7 +154,7 @@ class Predator(BoidBase):
         pygame.sprite.Sprite.__init__(self)
         # TODO
         # fix the path
-        self.image = pygame.image.load("../lib/predator.png")
+        self.image = pygame.image.load(BoidConstants.PREDATOR_IMAGE)
         self.rect = self.image.get_rect()
     def setSpeed(self):
         self.velocityX *= 1.01

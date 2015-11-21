@@ -5,8 +5,8 @@ import pygame
 import random
 import sys
 sys.path.append("..")
-from lib.boid import Boid, Predator
-from lib.boid_constants import BoidConstants
+from boids.boid import Boid, Predator
+from boids.boid_constants import BoidConstants
 
 
 size = width, height = BoidConstants.MAP_SIZE
