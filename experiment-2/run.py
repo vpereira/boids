@@ -18,14 +18,6 @@ pygame.init()
 
 screen = pygame.display.set_mode(size)
 
-prey = pygame.image.load("../lib/ball.png")
-predator = pygame.image.load("../lib/gray-ball.png")
-
-preyrect = prey.get_rect()
-
-predatorect = predator.get_rect()
-
-
 
 predators = [ Predator(random.randint(0, width),
     random.randint(0, height),1, screen) for i in xrange(0,numBoids/50)]
@@ -77,8 +69,8 @@ while 1:
 
         boid.move()
 
-    screen.fill(black)
-
+    screen.fill((142,141,143))
+    
     for pred in predators:
         pred.doScreen()
 

@@ -53,7 +53,7 @@ class Boid(BoidBase):
         pygame.sprite.Sprite.__init__(self)
         # TODO
         # fix the path
-        self.image = pygame.image.load("../lib/ball.png")
+        self.image = pygame.image.load("../lib/boid.png")
         self.rect = self.image.get_rect()
 
     "Procreation"
@@ -153,7 +153,7 @@ class Predator(BoidBase):
         pygame.sprite.Sprite.__init__(self)
         # TODO
         # fix the path
-        self.image = pygame.image.load("../lib/gray-ball.png")
+        self.image = pygame.image.load("../lib/predator.png")
         self.rect = self.image.get_rect()
     def setSpeed(self):
         self.velocityX *= 1.01

@@ -70,7 +70,7 @@ while 1:
 
         boid.move()
 
-    screen.fill(black)
+    screen.fill((142,141,143))
 
     for pred in predators:
         pred.doScreen()
