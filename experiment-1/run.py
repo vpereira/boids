@@ -4,6 +4,7 @@
 import pygame
 import random
 import sys
+sys.path.append("../lib")
 from boid import Boid, Predator
 
 size = width, height = 800, 600
@@ -17,8 +18,8 @@ pygame.init()
 
 screen = pygame.display.set_mode(size)
 
-prey = pygame.image.load("ball.png")
-predator = pygame.image.load("gray-ball.png")
+prey = pygame.image.load("../lib/ball.png")
+predator = pygame.image.load("../lib/gray-ball.png")
 
 preyrect = prey.get_rect()
 
