@@ -6,6 +6,7 @@ import random
 import sys
 sys.path.append("../lib")
 from boid import Boid, Predator
+from boid_constants import BoidConstants
 
 size = width, height = 800, 600
 black = 0, 0, 0
@@ -70,7 +71,7 @@ while 1:
 
         boid.move()
 
-    screen.fill((142,141,143))
+    screen.fill(BoidConstants.BACKGROUND_COLOR)
 
     for pred in predators:
         pred.doScreen()
