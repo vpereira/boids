@@ -8,8 +8,7 @@ sys.path.append("../lib")
 from boid import Boid, Predator
 from boid_constants import BoidConstants
 
-size = width, height = 800, 600
-black = 0, 0, 0
+size = width, height = BoidConstants.MAP_SIZE
 
 maxVelocity = 10
 numBoids = 90
