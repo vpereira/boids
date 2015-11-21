@@ -18,8 +18,6 @@ pygame.init()
 
 screen = pygame.display.set_mode(size)
 
-
-
 predators = [ Predator(random.randint(0, width),
     random.randint(0, height),1, screen) for i in xrange(0,5)]
 
@@ -41,8 +39,6 @@ while 1:
         pred.move()
         # predators are killing
         boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
-
-
 
     print len(boids)
     for boid in boids:
@@ -72,11 +68,8 @@ while 1:
 
     screen.fill(BoidConstants.BACKGROUND_COLOR)
 
-    for pred in predators:
-        pred.doScreen()
-
-    for boid in boids:
-        boid.doScreen()
+    for el in predators + boids:
+        el.doScreen()
 
     pygame.display.flip()
-    pygame.time.delay(10)
+    pygame.time.delay(BoidConstants.DEFAULT_DELAY)

@@ -43,8 +43,6 @@ while 1:
         # predators are killing
         boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
 
-
-
     print len(boids)
     for boid in boids:
         closeBoids = []
@@ -73,11 +71,8 @@ while 1:
 
     screen.fill(BoidConstants.BACKGROUND_COLOR)
 
-    for pred in predators:
-        pred.doScreen()
-
-    for boid in boids:
-        boid.doScreen()
+    for el in predators + boids:
+        el.doScreen()
 
     pygame.display.flip()
-    pygame.time.delay(10)
+    pygame.time.delay(BoidConstants.DEFAULT_DELAY)
