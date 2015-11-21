@@ -18,7 +18,7 @@ class BoidBase(pygame.sprite.Sprite):
         self.maxVelocity = maxVelocity
 
     "paint it in the screen"
-    def do_screen(self):
+    def doScreen(self):
         objRect = pygame.Rect(self.rect)
         objRect.x = self.x
         objRect.y = self.y

@@ -80,10 +80,10 @@ while 1:
     screen.fill(black)
 
     for pred in predators:
-        pred.do_screen()
+        pred.doScreen()
 
     for boid in boids:
-        boid.do_screen()
+        boid.doScreen()
 
     pygame.display.flip()
     pygame.time.delay(10)
