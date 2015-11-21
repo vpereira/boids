@@ -43,7 +43,7 @@ while 1:
             sys.exit()
 
     for pred in predators:
-        pred.keep_on_screen()
+        pred.keepOnScreen()
         pred.setSpeed()
         pred.move()
         # predators are killing
@@ -73,7 +73,7 @@ while 1:
 
         # ensure they stay within the screen space
         # if we roubound we can lose some of our velocity
-        boid.keep_on_screen()
+        boid.keepOnScreen()
 
         boid.move()
 

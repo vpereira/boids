@@ -35,7 +35,7 @@ class BoidBase(pygame.sprite.Sprite):
         self.y += self.velocityY
 
     "keep on screen"
-    def keep_on_screen(self,border=25, height=600,width=800):
+    def keepOnScreen(self,border=25, height=600,width=800):
         if self.x < border and self.velocityX < 0:
             self.velocityX = -self.velocityX * random.random()
         if self.x > width - border and self.velocityX > 0:
