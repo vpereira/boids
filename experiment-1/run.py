@@ -41,7 +41,6 @@ while 1:
         boids = [ boid for boid in boids if boid.distance(pred) >= 10 ]
         pred.moveCloser(boids)
 
-    print len(boids)
     for boid in boids:
         closeBoids = []
         for otherBoid in boids:
@@ -51,9 +50,9 @@ while 1:
             if distance < 200:
                 closeBoids.append(otherBoid)
             if distance <= 1:
-                baby = boid.procreate(otherBoid)
-                if baby:
-                    boids.append(baby)
+                babies = boid.procreate(otherBoid)
+                if babies:
+                    boids += babies
                 else:
                     pass
 
@@ -75,5 +74,8 @@ while 1:
     for el in predators + boids:
         el.doScreen()
 
+    font=pygame.font.Font(None,30)
+    scoretext=font.render("Boids:"+str(len(boids)), 1,(1,1,1))
+    screen.blit(scoretext, (10, 510))
     pygame.display.flip()
     pygame.time.delay(BoidConstants.DEFAULT_DELAY)
